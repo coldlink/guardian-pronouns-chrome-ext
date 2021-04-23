@@ -7,6 +7,7 @@ const pronouns = [
 // store pronouns here
 const pronounMap = new Map(pronouns);
 
+// add a users pronoun to a given element
 const addPronoun = (element) => {
   // get the email from the element attribute
   const email = element.getAttribute('data-hovercard-id');
@@ -32,11 +33,12 @@ const addPronoun = (element) => {
     element.setAttribute('data-pronoun', 'true');
   }
 }
-  
-// check and update every 10 seconds
+
+// on google chat (and any google chat iframe)
 if (window.location.hostname === 'chat.google.com') {
-  // Create a new MutationObserver object
+  // Create a new MutationObserver object observer, we look at DOM mutations
   const observer = new MutationObserver((mutations) => {
+    // loop through each observed mutation
     mutations.forEach(mutation => {
       // update pronouns on things like scroll, and open thread
       if (mutation.target.nodeType === 1 && (mutation.target.matches('.Bl2pUd') || mutation.target.matches('.SvOPqd') || mutation.target.matches('.jGyvbd'))) {
@@ -45,8 +47,10 @@ if (window.location.hostname === 'chat.google.com') {
           addPronoun(element);
         });
       }
-      
+
+      // on node element added
       mutation.addedNodes.forEach(addedNode => {
+        // make sure it's an element so we can call properties on the Element type
         if (addedNode.nodeType === 1) {
           // changes to the main body when changing rooms
           if (addedNode.matches('.Bqp03e')) {
