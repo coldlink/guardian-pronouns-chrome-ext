@@ -1,0 +1,13 @@
+{
+  "name": "Guardian Chat Pronoun Extension",
+  "description": "Pronouns in google chat!",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["https://chat.google.com/*", "https://mail.google.com/*"],
+      "js": ["index.js"],
+      "all_frames": true
+    }
+  ]
+}
